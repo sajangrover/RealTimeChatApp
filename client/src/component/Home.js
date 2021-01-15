@@ -24,7 +24,7 @@ class Home extends Component {
                     loggedIn: true
                 },() => {});
             }).catch(err => {
-                console.log(err);
+                alert(`User Name ${this.state.userName} already exist`)
             })
         }
     }
