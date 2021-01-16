@@ -43,7 +43,8 @@ io.on('connect', socket => {
         socket.broadcast.to(user.room).emit('message', { user: 'admin', message: `${user.name} has joined` });
     })
 
-    socket.on('sendMessage', (user, msg) => {
+    socket.on('sendMessage',  msg => {
+        const user = userInfo[socket.id];
         io.to(user.room).emit('message', { user: user.name, message: msg });
     })
 

@@ -1,56 +1,60 @@
 import React, {Component} from 'react'
 import queryString from 'query-string'
 import socketIOClient from "socket.io-client";
+import Message from './Message';
 const ENDPOINT = "http://localhost:9000";
 let socket;
-let user;
 class Chat extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            message : '',
-            welcomeMsg : ''
+            sentMessage: '',
+            name: '',
+            room: '',
+            data : []
         }
     }
 
     componentDidMount() {
-        user = queryString.parse(this.props.location.search)
-        console.log(user)
+        const user = queryString.parse(this.props.location.search)
         socket = socketIOClient(ENDPOINT);
-
+        this.setState({
+            name: user.name,
+            room: user.room
+        },()=>{})
         socket.emit('join', user);
         socket.on("message", data => {
-            console.log(data);
+            this.setState({
+                data: [...this.state.data,{
+                        receiveMessage : data.message,
+                        sender: data.user
+                    }]
+            })
         });
 
     }
 
     handleChange = (e) => {
         this.setState({
-            message : e.target.value
+            sentMessage : e.target.value
         })
     }
     handleClick = () => {
-        socket.emit('sendMessage',user, this.state.message);
+        socket.emit('sendMessage', this.state.sentMessage);
         this.setState({
-            message : ''
+            sentMessage : ''
         })
     }
     render(){
         return (
             <div className="outerContainer">
                 <div className="innerContainer">
-                    <div className="messageConatiner"> 
-                        <div className="welcomeConatiner">
-                        {
-                            this.state.welcomeMsg
-                        }
-                        </div>
-                        <div className="chatContainer">ALl Messages</div>
-                    </div>
+                   
+                        <Message info={this.state}></Message>
+                    
                     <div className="sendMessageContainer">
-                        <input id="message" type="text" onChange ={this.handleChange} value={this.state.message}/>
+                        <input id="message" type="text" onChange ={this.handleChange} value={this.state.sentMessage}/>
                         <button id="send" onClick = {this.handleClick}>send</button>
                     </div>
                 </div>

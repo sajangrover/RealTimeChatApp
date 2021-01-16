@@ -1,0 +1,28 @@
+.messageConatiner {
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scroll-snap-type: y proximity;
+    display: flex;
+    
+}
+
+.messageConatiner > div:last-child {
+    scroll-snap-align: end;
+}
+
+.receiver, .sender, .admin {
+    display: flex;
+    flex-direction: row;
+    max-width: 60%;
+    word-break: break-word;
+}
+
+.sender{
+    align-self: flex-end;
+}
+
+.admin {
+    align-self:center;
+}
+
