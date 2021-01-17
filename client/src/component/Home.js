@@ -34,11 +34,11 @@ class Home extends Component {
             return <Redirect to = {`/chat?name=${userName}&room=${room}`} />;
         }
         return (
-            <div>
-                <div>
-                    <input id="userName" type="text" placeholder="Enter User Name" onChange={this.handleChane}/>
-                    <input id="room" type="text" placeholder="Enter Rooom Name" onChange={this.handleChane}/>
-                    <button onClick={this.joinChat}>JOIN</button>
+            <div className="loginOuterConatiner">
+                <div className="loginConatiner">
+                    <input className="content" id="userName" type="text" placeholder="Enter User Name" onChange={this.handleChane}/>
+                    <input className="content" id="room" type="text" placeholder="Enter Rooom Name" onChange={this.handleChane}/>
+                    <button className="content" type="submit" onClick={this.joinChat}>JOIN</button>
                 </div>
             </div>
         )

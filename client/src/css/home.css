@@ -1,0 +1,19 @@
+.loginOuterConatiner {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.loginConatiner {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid grey;
+    padding: 10px;
+    margin-top: 30px;
+}
+
+.content {
+    margin-top: 10px;
+}

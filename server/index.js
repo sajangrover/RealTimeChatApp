@@ -51,6 +51,7 @@ io.on('connect', socket => {
     socket.on('disconnect', () => {
         const { name, room } = userInfo[socket.id];
         if (room) {
+            socket.broadcast.to(room).emit('message', { user: 'admin', message: `${name} has left the room` });
             let index = rooms[room].indexOf(name);
             if (index > -1) {
                 rooms[room].splice(index, 1);
